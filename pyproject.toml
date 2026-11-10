@@ -1,0 +1,65 @@
+[project]
+name = "ascend-venc-roi"
+version = "0.1.0"
+description = "Per-frame Region-of-Interest H.265 encoding on Huawei Ascend NPUs via the native VENC API"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+keywords = ["video", "encoding", "roi", "hevc", "h265", "ascend", "npu", "venc", "cann"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Topic :: Multimedia :: Video",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+# pyACL ships with CANN and is not installable from PyPI — it is a device-side
+# runtime requirement, imported lazily so this package stays importable off-device.
+dependencies = [
+    "numpy>=1.24.0",
+]
+
+[project.optional-dependencies]
+example = [
+    "opencv-python-headless>=4.8.0",
+]
+dev = [
+    "pytest>=7.4",
+    "ruff>=0.1.0",
+    "mypy>=1.5",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ascend_venc_roi"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["ascend_venc_roi"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["acl.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short"

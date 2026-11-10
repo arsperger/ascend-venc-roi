@@ -1,0 +1,9 @@
+ascend-venc-roi
+Copyright 2026 The ascend-venc-roi contributors
+
+"Ascend", "CANN" and "Huawei" are trademarks of Huawei Technologies Co., Ltd.
+This project is not affiliated with or endorsed by Huawei.
+
+This software encodes H.265/HEVC bitstreams. It grants no rights under any
+codec patent; obtaining such rights, where required, is the user's
+responsibility.
